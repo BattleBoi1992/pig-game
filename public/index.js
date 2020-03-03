@@ -38,7 +38,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         //display result
         var diceDOM = document.querySelector('.dice')
         diceDOM.style.display = 'block';
-        diceDOM.src = 'assets/dice-' + dice + '.png';
+        diceDOM.src = '/assets/dice-' + dice + '.png';
         //update score if roll is not 1
         if (dice !== 1) {
             //add round score
