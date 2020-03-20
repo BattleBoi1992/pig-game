@@ -12,34 +12,40 @@
     <body>
         <div class="wrapper clearfix">
             <div class="player-0-panel">
-                <div class="player-name" id="name-0"></div>
-                <div class="player-score" id="score-0"></div>
+                <div class="player-name" id="name-0">Player 1</div>
+                <div class="player-score" id="score-0">0</div>
                 <div class="player-current-box">
                     <div class="player-current-label">Current</div>
-                    <div class="player-current-score" id="current-0"></div>
+                    <div class="player-current-score" id="current-0">0</div>
                 </div>
             </div>
             
             <div class="player-1-panel">
-                <div class="player-name" id="name-1"></div>
-                <div class="player-score" id="score-1"></div>
+                <div class="player-name" id="name-1">Player 2</div>
+                <div class="player-score" id="score-1">0</div>
                 <div class="player-current-box">
                     <div class="player-current-label">Current</div>
-                    <div class="player-current-score" id="current-1"></div>
+                    <div class="player-current-score" id="current-1">0</div>
                 </div>
             </div>
             
-            <button class="btn-new"><i class="fas fa-plus"></i>New game</button>
+            <div class="setup-wrapper">
+                <button class="btn-new"><i class="fas fa-plus"></i></i>New game</button>
+                <div class="input-wrapper">    
+                    <label class="score-label">Score to Win</label>
+                    <input type="number" class="score-field" value="100" id="score-field">
+                </div>
+            </div>
             <button class="btn-roll"><i class="fas fa-dice"></i>Roll dice</button>
-            <button class="btn-hold"><i class="fas fa-hand-paper"></i>Hold</button>
+            <button class="btn-hold"><i class="fas fa-arrow-down"></i></i>Hold</button>
             
-            <img src="dice-5.png" alt="Dice" class="dice">
+            <div class="dice-wrapper">
+                <img src="" alt="Dice" class="dice" id="diceOne">
+                <img src="" alt="Dice" class="dice" id="diceTwo">
+            </div>
+            <span class="legal-disclaimer">Designed & Developed by Raine Petersen &copy; 2020</span>
         </div>
-
-        <div class="footer">
-            <span class="signature">Designed & Developed by Raine Petersen &copy; 2020</span>
-        </div>
-
+        
         <script src="index.js"></script>
     </body>
 </html>

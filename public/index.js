@@ -8,14 +8,16 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, lastRoll, activePlayer, gamePlaying;
 
 function initGame() {
 scores = [0,0]; 
-roundScore = 0; 
+roundScore = 0;
+lastRoll = 0;
 activePlayer = 0; 
 gamePlaying = true;
-document.querySelector('.dice').style.display = 'none'; 
+document.getElementById('diceOne').style.display = 'none';
+document.getElementById('diceTwo').style.display = 'none'; 
 document.querySelector('.player-0-panel').classList.remove('active');
 document.querySelector('.player-1-panel').classList.remove('active');
 document.querySelector('.player-0-panel').classList.add('active');
@@ -30,19 +32,24 @@ document.querySelector('.player-1-panel').classList.remove('winner')
 };
 
 initGame();
-
+//Roll dice
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if (gamePlaying) {
         //random number
-        var dice = Math.floor(Math.random() * 6) + 1;
+        var diceOne = Math.floor(Math.random() * 6) + 1;
+        var diceTwo = Math.floor(Math.random() * 6) + 1; 
         //display result
-        var diceDOM = document.querySelector('.dice')
-        diceDOM.style.display = 'block';
-        diceDOM.src = '/assets/dice-' + dice + '.png';
+        var diceOneDOM = document.getElementById('diceOne');
+        var diceTwoDOM = document.getElementById('diceTwo');
+        diceOneDOM.style.display = 'inline-block';
+        diceTwoDOM.style.display = 'inline-block';
+        diceOneDOM.src = '/assets/dice-' + diceOne + '.png';
+        diceTwoDOM.src = '/assets/dice-' + diceTwo + '.png';
         //update score if roll is not 1
-        if (dice !== 1) {
+        if (diceOne !== 1 && diceTwo !== 1) {
             //add round score
-            roundScore += dice;
+            var combineDice = diceOne + diceTwo;
+            roundScore += combineDice;
             document.getElementById('current-' + activePlayer).textContent = roundScore; 
         } else {
             //switch active player
@@ -50,7 +57,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         };
     };
 });
-
+//Save Score
 document.querySelector('.btn-hold').addEventListener('click', function() {
     if (gamePlaying) {
         //add current score to active players global score
@@ -58,7 +65,9 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         //update current player global score text
         document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
         //check for winner
-        if (scores[activePlayer] >= 100) {
+        var scoreToWin = document.getElementById('score-field').value;
+        scoreToWin >= 1 && scoreToWin <= 1000 ? scoreToWin : scoreToWin = 100;
+        if (scores[activePlayer] >= scoreToWin) { 
             //clears the current round score text
             document.getElementById('current-' + activePlayer).textContent = '0';
             //adds winner style
@@ -67,7 +76,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
             //removes active player style
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
             //removes the dice from the DOM
-            document.querySelector('.dice').style.display = 'none';
+            document.getElementById('diceOne').style.display = 'none';
+            document.getElementById('diceTwo').style.display = 'none'; 
             //disables roll dice
             gamePlaying = false;
         } else {
@@ -76,7 +86,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         };
     };
 });
-
+//Switch players
 function nextPlayer() {
     //set active player current score text to zero
     document.getElementById('current-' + activePlayer).textContent = '0';
@@ -87,8 +97,9 @@ function nextPlayer() {
     //change current player style
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
-    //remove dice from DOM
-    document.querySelector('.dice').style.display = 'none';
+    //Remove the dice from the DOM
+    document.getElementById('diceOne').style.display = 'none';
+    document.getElementById('diceTwo').style.display = 'none'; 
 };
-
+//Start new game
 document.querySelector('.btn-new').addEventListener('click', initGame);
